@@ -10,25 +10,47 @@
     input { width: 100%; padding: 8px; margin-top: 5px; }
     button { margin-top: 20px; padding: 10px; width: 48%; cursor: pointer; }
     .result { margin-top: 20px; font-weight: bold; }
+    #calculator { display: none; }
   </style>
 </head>
 <body>
   <h2>Parcel Price Calculator</h2>
 
-  <label>Parcel 1 Price (€)</label>
-  <input type="number" id="parcel1" placeholder="Enter price for parcel 1" />
-
-  <label>Parcel 2 Price (€)</label>
-  <input type="number" id="parcel2" placeholder="Enter price for parcel 2" />
-
-  <div>
-    <button onclick="calculate()">Calculate</button>
-    <button onclick="resetFields()">Reset</button>
+  <div id="login">
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="checkPassword()">Enter</button>
+    <div id="loginMessage" style="color:red; margin-top:10px;"></div>
   </div>
 
-  <div class="result" id="result"></div>
+  <div id="calculator">
+    <label>Parcel 1 Price (€)</label>
+    <input type="number" id="parcel1" placeholder="Enter price for parcel 1" />
+
+    <label>Parcel 2 Price (€)</label>
+    <input type="number" id="parcel2" placeholder="Enter price for parcel 2" />
+
+    <div>
+      <button onclick="calculate()">Calculate</button>
+      <button onclick="resetFields()">Reset</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
 
   <script>
+    const correctPassword = '1234'; // set your password here
+
+    function checkPassword() {
+      const entered = document.getElementById('password').value;
+      if (entered === correctPassword) {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('calculator').style.display = 'block';
+      } else {
+        document.getElementById('loginMessage').textContent = 'Incorrect password, try again.';
+      }
+    }
+
     function calculate() {
       const p1 = parseFloat(document.getElementById('parcel1').value) || 0;
       const p2 = parseFloat(document.getElementById('parcel2').value) || 0;
